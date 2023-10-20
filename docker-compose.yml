@@ -1,0 +1,31 @@
+version: '3.5'
+
+services:
+  rmc:
+    container_name: app-rmc
+    build:
+      context: .  
+    image: php:8.2-fpm
+    volumes:
+      - .:/app
+
+  nginx:
+    container_name: app-nginx
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - .public:/app/public:ro
+    depends_on:
+      - rmc
+    
+  postgresqldb:
+    container_name: app-postgresql-db
+    image: postgres:latest
+    restart: on-failure
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: rmc-db
+    ports:
+      - "5432:5432"
