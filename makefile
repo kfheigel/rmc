@@ -1,4 +1,4 @@
-run: build up composer-install
+run: build up composer-install seed
 
 build:
 	docker-compose build
@@ -12,8 +12,18 @@ down:
 bash:
 	docker exec -it app-rmc /bin/bash
 
+nginx:
+	docker exec -it app-nginx /bin/bash
+
 composer-install:
-	docker-compose exec -T app-rmc composer install
+	docker exec -it app-rmc composer install
+
+sleep:
+	sleep 5
+
+seed:
+	docker exec -it app-rmc php bin/console doctrine:database:create
+	docker exec -it app-rmc php bin/console doctrine:migrations:migrate --no-interaction
 
 cache-clear:
-	docker-compose exec -T app-rmc bin/console cache:clear
+	docker exec -it app-rmc bin/console cache:clear
