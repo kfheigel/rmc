@@ -9,8 +9,8 @@ services:
       - .:/app
 
   nginx:
-    container_name: app-nginx
     image: nginx:alpine
+    container_name: app-nginx
     ports:
       - "8080:80"
     volumes:
@@ -20,8 +20,8 @@ services:
       - rmc
     
   postgresqldb:
-    container_name: app-postgresql-db
     image: postgres:latest
+    container_name: app-postgresql-db
     restart: on-failure
     environment:
       POSTGRES_USER: rmc
@@ -31,3 +31,13 @@ services:
       - "5432:5432"
     volumes:
       - .:/app
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
