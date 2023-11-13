@@ -7,6 +7,7 @@ namespace App\Domain\Entity;
 use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ClientRepository;
+use Doctrine\DBAL\Types\Types;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
@@ -16,7 +17,7 @@ class Client
     #[ORM\Column(type: UuidType::NAME, unique: true)]
     private Uuid $id;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::STRING, length: 255, unique: true)]
     private string $email;
     
     public function __construct(string $email)
