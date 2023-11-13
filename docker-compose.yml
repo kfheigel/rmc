@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   rmc:
-    container_name: app-rmc
+    container_name: rmc
     build:
       context: .  
     volumes:
@@ -10,7 +10,7 @@ services:
 
   nginx:
     image: nginx:alpine
-    container_name: app-nginx
+    container_name: nginx
     ports:
       - "8080:80"
     volumes:
@@ -21,12 +21,12 @@ services:
     
   postgresqldb:
     image: postgres:latest
-    container_name: app-postgresql-db
+    container_name: postgresql-db
     restart: on-failure
     environment:
       POSTGRES_USER: rmc
       POSTGRES_PASSWORD: root
-      POSTGRES_DB: app-postgresql-db
+      POSTGRES_DB: postgresql-db
     ports:
       - "5432:5432"
     volumes:

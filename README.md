@@ -4,7 +4,7 @@ Reservation Management Center - for those who use multiple booking systems
 
 ## Run
 
-Install RMC project using make command:
+Run RMC project using make command:
 
 ```bash
   make run
