@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   rmc:
-    container_name: rmc
+    container_name: app-rmc
     build:
       context: .  
     volumes:
@@ -19,7 +19,7 @@ services:
     depends_on:
       - rmc
     
-  postgresqldb:
+  postgresql:
     image: postgres:latest
     container_name: postgresql-db
     restart: on-failure

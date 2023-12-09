@@ -22,8 +22,8 @@ sleep:
 	sleep 5
 
 seed:
-	docker exec -it app-rmc php bin/console doctrine:database:create
-	docker exec -it app-rmc php bin/console doctrine:migrations:migrate --no-interaction
+	docker exec -it app-rmc bin/console doctrine:database:create
+	docker exec -it app-rmc bin/console doctrine:migrations:migrate --no-interaction
 
 cache-clear:
 	docker exec -it app-rmc bin/console cache:clear
