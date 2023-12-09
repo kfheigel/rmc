@@ -27,3 +27,6 @@ seed:
 
 cache-clear:
 	docker exec -it app-rmc bin/console cache:clear
+
+consume-async:
+	docker exec -it app-rmc bin/console messenger:consume async -vv

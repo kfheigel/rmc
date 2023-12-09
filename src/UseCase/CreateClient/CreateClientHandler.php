@@ -7,8 +7,8 @@ namespace App\UseCase\CreateClient;
 use App\Domain\Entity\Client;
 use App\Eventstorming\ClientCreatedEvent;
 use App\UseCase\CreateClient\CreateClientCommand;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 #[AsMessageHandler]
 final class CreateClientHandler
