@@ -1,6 +1,6 @@
 ARG PHP_VERSION=8.2
 
-FROM php:${PHP_VERSION}-fpm
+FROM php:${PHP_VERSION}-fpm-buster
 
 RUN apt-get update && apt-get install -y \
     git \

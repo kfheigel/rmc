@@ -5,6 +5,7 @@ services:
     container_name: app-rmc
     build:
       context: .  
+      dockerfile: Dockerfile
     volumes:
       - .:/app
 
