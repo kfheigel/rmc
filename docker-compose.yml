@@ -1,29 +1,29 @@
 version: '3.5'
 
 services:
-  rmc:
-    container_name: app-rmc
+  app:
+    container_name: rmc
     build:
       context: .  
       dockerfile: Dockerfile
     volumes:
       - .:/app
 
-  nginx:
-    image: nginx:alpine
+  web:
+    image: nginx:latest
     container_name: nginx
     ports:
-      - "8080:80"
+      - "80:80"
     volumes:
       - .:/app
       - ./docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
-      - rmc
+      - app
     
-  postgresql:
+  db:
     image: postgres:latest
     container_name: postgresql-db
-    restart: on-failure
+    restart: unless-stopped
     environment:
       POSTGRES_USER: rmc
       POSTGRES_PASSWORD: root
@@ -33,7 +33,7 @@ services:
     volumes:
       - .:/app
 
-  rabbitmq:
+  amqp:
     image: rabbitmq:3-management
     container_name: 'rabbitmq'
     environment:
