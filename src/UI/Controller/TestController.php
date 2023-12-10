@@ -11,11 +11,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class TestController extends AbstractController
 {
     #[Route('/test', name: 'app_test')]
-    public function index(MessageBusInterface $bus): Response
+    public function index(MessageBusInterface $commandBus): Response
     {
         $email = 'test@email.com';
         $message = new CreateClientCommand($email);
-        $bus->dispatch($message);
+        $commandBus->dispatch($message);
 
         return new Response('command send');
     }
