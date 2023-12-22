@@ -30,3 +30,11 @@ cache-clear:
 
 consume-async:
 	docker exec -it rmc bin/console messenger:consume async -vv
+
+unit-tests:
+	docker exec -it rmc ./bin/phpunit -c phpunit.xml --testdox --testsuite unit
+
+integration-tests:
+	docker exec -it rmc ./bin/phpunit -c phpunit.xml --testdox --testsuite integration
+
+test: unit-tests integration-tests

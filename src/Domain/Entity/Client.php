@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Domain\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\ClientRepository;
-use Doctrine\DBAL\Types\Types;
 use Symfony\Bridge\Doctrine\Types\UuidType;
+use App\Infrastructure\Repository\ClientRepository;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
 class Client
@@ -20,10 +20,10 @@ class Client
     #[ORM\Column(type: Types::STRING, length: 255, unique: true)]
     private string $email;
     
-    public function __construct(string $email)
+    public function __construct(string $email, ?Uuid $id = null)
     {
+        $this->id = $id ?? Uuid::v4();
         $this->email = $email;
-        $this->id = Uuid::v4();
     }
 
     public function getId(): Uuid

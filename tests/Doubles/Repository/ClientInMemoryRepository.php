@@ -1,26 +1,19 @@
 <?php
 
-declare(strict_types=1);
-
-namespace App\Infrastructure\Repository;
+namespace App\Tests\Doubles\Repository;
 
 use App\Domain\Entity\Client;
 use Symfony\Component\Uid\Uuid;
-use Doctrine\Persistence\ManagerRegistry;
 use App\Domain\Repository\ClientRepositoryInterface;
 use App\Domain\Repository\NonExistentEntityException;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
-final class ClientRepository extends ServiceEntityRepository implements ClientRepositoryInterface
+final class ClientInMemoryRepository implements ClientRepositoryInterface
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Client::class);
-    }
-    
+    private array $entities = [];
+
     public function save(Client $client): void
     {
-        $this->getEntityManager()->persist($client);
+        $this->entities[$client->getId()->toRfc4122()] = $client;
     }
 
     public function get(Uuid $uuid): Client
@@ -36,11 +29,12 @@ final class ClientRepository extends ServiceEntityRepository implements ClientRe
 
     public function findOne(Uuid $uuid): ?Client
     {
-        return $this->find($uuid);
+        return $this->entities[$uuid->toRfc4122()] ?? null;
+
     }
 
     public function findAll(): array
     {
-        return $this->findBy([]);
+        return $this->entities;
     }
 }
